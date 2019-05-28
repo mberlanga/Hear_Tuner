@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //TODO: Condense set up of bluetooth verification into another Bluetooth.java file
+        //      so that one can just run a bluetooth_init() function
         //Set up Bluetooth Adapter
         int intVal = 1;
         mBlueAdapter = BluetoothAdapter.getDefaultAdapter();  //Assigns default adapter
@@ -53,12 +55,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+
         //Setup Buttons for Main Menu/Title Screen
         Button enableButton = (Button)findViewById(R.id.enable_button);   //Initialize enable button
         Button disableButton = (Button)findViewById(R.id.disable_button); //Initialize disable button
         Button settingsButton = (Button)findViewById(R.id.settings_button); //Initialize settings button
 
 
+        //TODO: Set up application state object that will add behavior to enable and disable buttons
 
         //FloatingActionButton fab = findViewById(R.id.fab);
         enableButton.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //TODO: Add layout to transition to after settings button has been pressed
+        //TODO: Create object to hold settings features to be configured
+
         settingsButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -96,25 +103,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    //TODO: Add audio playback
+    //TODO: Add audio recording
+    //TODO: Add test audio file to manipulate for testing
+    //TODO: Create simple filter to filter sound of test filter
     }
 }
