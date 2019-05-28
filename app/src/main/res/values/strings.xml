@@ -10,10 +10,14 @@
     <string name="settings_button_text">Setup Hearing Profile</string>
 
 
-
+    <string name="settings_instructions_text">Choose a Hearing Profile</string>
     <string name="operating_mode_title">Operating Mode</string>
-    <string name="choose_test_profile_button">Use Test Profile</string>
-    <string name="choose_manual_profile">Use Manual Profile</string>
+    <string name="choose_test_profile_button">Test Results</string>
+    <string name="choose_manual_profile">Manual Entry</string>
+    <string name="activate_hearing_test">Setup Test Profile</string>
+    <string name="activate_manual_entry">Setup Manual Profile</string>
+
+
     <string name="start_test_button">Start Test</string>
     <string name="confirm_hearing_button">Yes</string>
     <string name="deny_hearing_button">No</string>

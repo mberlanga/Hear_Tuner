@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".settings">
+
+    <TextView
+        android:id="@+id/settings_instructions_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/settings_instructions_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/configure_manual_entry_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="8dp"
+        android:background="#B1C6F1"
+        android:backgroundTint="#ADD5F3"
+        android:paddingLeft="8"
+        android:paddingRight="8"
+        android:text="@string/activate_manual_entry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_instructions_text" />
+
+    <Button
+        android:id="@+id/configure_test_results_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="8dp"
+        android:background="#B1C6F1"
+        android:backgroundTint="#ADD5F3"
+        android:paddingLeft="8"
+        android:paddingRight="8"
+        android:text="@string/activate_hearing_test"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/configure_manual_entry_button" />
+
+    <ToggleButton
+        android:id="@+id/manual_choice_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:background="#B1C6F1"
+        android:backgroundTint="#ADD5F3"
+        android:checked="false"
+        android:text="@string/choose_manual_profile"
+        app:layout_constraintStart_toStartOf="@+id/settings_instructions_text"
+        app:layout_constraintTop_toBottomOf="@+id/settings_instructions_text" />
+
+    <ToggleButton
+        android:id="@+id/test_results_choice_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:background="#B1C6F1"
+        android:backgroundTint="#ADD5F3"
+        android:text="@string/choose_test_profile_button"
+        app:layout_constraintEnd_toEndOf="@+id/settings_instructions_text"
+        app:layout_constraintTop_toBottomOf="@+id/settings_instructions_text" />
+
+</android.support.constraint.ConstraintLayout>
