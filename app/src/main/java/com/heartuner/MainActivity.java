@@ -4,14 +4,14 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.Set;
 
@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         //Set up Bluetooth Adapter
         int intVal = 1;
@@ -55,13 +53,45 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        //Setup Buttons for Main Menu/Title Screen
+        Button enableButton = (Button)findViewById(R.id.enable_button);   //Initialize enable button
+        Button disableButton = (Button)findViewById(R.id.disable_button); //Initialize disable button
+        Button settingsButton = (Button)findViewById(R.id.settings_button); //Initialize settings button
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+
+        //FloatingActionButton fab = findViewById(R.id.fab);
+        enableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Toast enableToast = Toast.makeText(getApplicationContext(),
+                        "Enabled!",
+                        Toast.LENGTH_SHORT
+                        );
+                enableToast.show();
+
+            }
+        });
+
+        disableButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Toast disableToast = Toast.makeText(getApplicationContext(),
+                        "Disabled!",
+                        Toast.LENGTH_SHORT
+                );
+                disableToast.show();
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Toast settingsToast = Toast.makeText(getApplicationContext(),
+                        "Settings!",
+                        Toast.LENGTH_SHORT
+                );
+                settingsToast.show();
             }
         });
     }
