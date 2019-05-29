@@ -145,7 +145,35 @@ public class MainActivity extends AppCompatActivity {
         mEqualizer.setEnabled(true); //Enable Equalizer
 
         short numFrequencyBands = mEqualizer.getNumberOfBands();
+        short[] bandLevelRange = mEqualizer.getBandLevelRange();
         Log.d("HearTuner.debug", "Number of Frequency Bands: " + numFrequencyBands + "\n");
+        Log.d("HearTuner.debug", "Lowest Level: " + bandLevelRange[0] + "\n");
+        Log.d("HearTuner.debug", "Highest Level: " + bandLevelRange[1] + "\n");
+
+        for(short i=0;i<numFrequencyBands;i++){
+            int centerFreq = mEqualizer.getCenterFreq(i);
+            Log.d("HearTuner.debug", "Center Frequency for band [" + i + "] :"+ centerFreq/1000 + " Hz\n");
+            Log.d("HearTuner.debug", "Range for band [" + i + "] :"+ mEqualizer.getBandLevel(i) + " millibels\n\n");
+
+        }
+
+
+
+        Log.d("HearTuner.debug", "NOW SETTING EQUALIZER TO DIFFERENT VALUES: [500,500,-200,200,0] \n");
+        mEqualizer.setBandLevel((short)0, (short)1500);
+        mEqualizer.setBandLevel((short)1,(short)1500);
+        mEqualizer.setBandLevel((short)2,(short)-1000);
+        mEqualizer.setBandLevel((short)3,(short)1500);
+        mEqualizer.setBandLevel((short)4,(short)1500);
+
+        for(short i=0;i<numFrequencyBands;i++){
+
+            int centerFreq = mEqualizer.getCenterFreq(i);
+            Log.d("HearTuner.debug", "Center Frequency for band [" + i + "] :"+ centerFreq/1000 + " Hz\n");
+            Log.d("HearTuner.debug", "Range for band [" + i + "] :"+ mEqualizer.getBandLevel(i) + " millibels\n\n");
+
+        }
+
 
 
     }
