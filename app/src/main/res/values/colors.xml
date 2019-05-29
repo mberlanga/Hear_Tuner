@@ -3,4 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="heartuner_Blue">#B1C6F1</color>
+    <color name="heartuner_Tint">#ADD5F3</color>
+    <color name="green_enable">#ADF3AE</color>
+    <color name="test">@color/heartuner_Blue</color>
 </resources>

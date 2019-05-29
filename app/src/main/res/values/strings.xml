@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">HearTuner</string>
     <string name="action_settings">Settings</string>
+    <string name="blank"></string>
 
     <string name="enable_button">Enable Button</string>
     <string name="disable_button">Disable Button</string>
