@@ -18,6 +18,11 @@
     <string name="activate_hearing_test">Setup Test Profile</string>
     <string name="activate_manual_entry">Setup Manual Profile</string>
 
+    <string name="title_manual_profile_entry">Adjust Manual Hearing Profile</string>
+    <string name="center_frequency">Center Frequency</string>
+    <string name="max_range">Max Range</string>
+    <string name="min_range">Min Range</string>
+
 
     <string name="start_test_button">Start Test</string>
     <string name="confirm_hearing_button">Yes</string>

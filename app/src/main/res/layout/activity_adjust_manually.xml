@@ -15,7 +15,7 @@
         android:layout_marginEnd="24dp"
         android:indeterminate="false"
         android:max="3000"
-        android:progress="0"
+        android:progress="1500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
         android:layout_marginEnd="24dp"
         android:indeterminate="false"
         android:max="3000"
-        android:progress="0"
+        android:progress="1500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
         android:layout_marginEnd="24dp"
         android:indeterminate="false"
         android:max="3000"
-        android:progress="0"
+        android:progress="1500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
         android:layout_marginEnd="24dp"
         android:indeterminate="false"
         android:max="3000"
-        android:progress="0"
+        android:progress="1500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,158 +75,163 @@
         android:layout_marginEnd="24dp"
         android:indeterminate="false"
         android:max="3000"
-        android:progress="0"
+        android:progress="1500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fBand0Adjuster3" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/band0_min_range"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="TextView"
+        android:text="@string/min_range"
         app:layout_constraintStart_toStartOf="@+id/fBand0Adjuster5"
         app:layout_constraintTop_toBottomOf="@+id/fBand0Adjuster5" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/band0_max_range"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="TextView"
+        android:text="@string/max_range"
         app:layout_constraintEnd_toEndOf="@+id/fBand0Adjuster5"
         app:layout_constraintTop_toBottomOf="@+id/fBand0Adjuster5" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/band1_min_range"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="TextView"
+        android:text="@string/min_range"
         app:layout_constraintStart_toStartOf="@+id/fBand0Adjuster4"
         app:layout_constraintTop_toBottomOf="@+id/fBand0Adjuster4" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/band2_min_range"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="TextView"
+        android:text="@string/min_range"
         app:layout_constraintStart_toStartOf="@+id/fBand0Adjuster3"
         app:layout_constraintTop_toBottomOf="@+id/fBand0Adjuster3" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/band3_min_range"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="TextView"
+        android:text="@string/min_range"
         app:layout_constraintStart_toStartOf="@+id/fBand0Adjuster2"
         app:layout_constraintTop_toBottomOf="@+id/fBand0Adjuster2" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/band4_min_range"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="TextView"
+        android:text="@string/min_range"
         app:layout_constraintStart_toStartOf="@+id/fBand0Adjuster"
         app:layout_constraintTop_toBottomOf="@+id/fBand0Adjuster" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/band1_max_range"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="TextView"
+        android:text="@string/max_range"
         app:layout_constraintEnd_toEndOf="@+id/fBand0Adjuster4"
         app:layout_constraintTop_toBottomOf="@+id/fBand0Adjuster4" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/band3_max_range"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="TextView"
+        android:text="@string/max_range"
         app:layout_constraintEnd_toEndOf="@+id/fBand0Adjuster2"
         app:layout_constraintTop_toBottomOf="@+id/fBand0Adjuster2" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/band4_max_range"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="TextView"
+        android:text="@string/max_range"
         app:layout_constraintEnd_toEndOf="@+id/fBand0Adjuster"
         app:layout_constraintTop_toBottomOf="@+id/fBand0Adjuster" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/band2_max_range"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="TextView"
+        android:text="@string/max_range"
         app:layout_constraintEnd_toEndOf="@+id/fBand0Adjuster3"
         app:layout_constraintTop_toBottomOf="@+id/fBand0Adjuster3" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/title_manual_entry_screen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:text="TextView"
+        android:text="@string/title_manual_profile_entry"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/band0_center_frequency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
+        android:text="@string/center_frequency"
         app:layout_constraintBottom_toTopOf="@+id/fBand0Adjuster5"
-        tools:layout_editor_absoluteX="176dp" />
+        app:layout_constraintEnd_toEndOf="@+id/fBand0Adjuster5"
+        app:layout_constraintStart_toStartOf="@+id/fBand0Adjuster5" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/band1_center_frequency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
+        android:text="@string/center_frequency"
         app:layout_constraintBottom_toTopOf="@+id/fBand0Adjuster4"
-        tools:layout_editor_absoluteX="176dp" />
+        app:layout_constraintEnd_toEndOf="@+id/fBand0Adjuster4"
+        app:layout_constraintStart_toStartOf="@+id/fBand0Adjuster4" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/band2_center_frequency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
+        android:text="@string/center_frequency"
         app:layout_constraintBottom_toTopOf="@+id/fBand0Adjuster3"
-        tools:layout_editor_absoluteX="176dp" />
+        app:layout_constraintEnd_toEndOf="@+id/fBand0Adjuster3"
+        app:layout_constraintStart_toStartOf="@+id/fBand0Adjuster3" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/band4_center_frequency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
+        android:text="@string/center_frequency"
         app:layout_constraintBottom_toTopOf="@+id/fBand0Adjuster"
-        tools:layout_editor_absoluteX="176dp" />
+        app:layout_constraintEnd_toEndOf="@+id/fBand0Adjuster"
+        app:layout_constraintStart_toStartOf="@+id/fBand0Adjuster" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/band3_center_frequency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
+        android:text="@string/center_frequency"
         app:layout_constraintBottom_toTopOf="@+id/fBand0Adjuster2"
-        tools:layout_editor_absoluteX="176dp" />
+        app:layout_constraintEnd_toEndOf="@+id/fBand0Adjuster2"
+        app:layout_constraintStart_toStartOf="@+id/fBand0Adjuster2" />
 
 </android.support.constraint.ConstraintLayout>
