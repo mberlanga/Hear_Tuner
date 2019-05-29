@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.media.audiofx.Equalizer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -23,6 +24,7 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     public MediaPlayer mp;
+    private Equalizer mEqualizer;
     private BluetoothAdapter mBlueAdapter; // To be used to interact with device Bluetooth
 
 
@@ -133,10 +135,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Test Media Features of application through media playback and recording
-        try {
+        try { //Setup static Media Player that plays song with dynamic range
             mp = MediaPlayer.create(this, R.raw.test);
         }
         catch (Exception e){e.printStackTrace();}
+
+        //Setup Equalizer to be associated with MediaPlayer
+        mEqualizer = new Equalizer(0,mp.getAudioSessionId());
+        mEqualizer.setEnabled(true); //Enable Equalizer
+
+        short numFrequencyBands = mEqualizer.getNumberOfBands();
+        Log.d("HearTuner.debug", "Number of Frequency Bands: " + numFrequencyBands + "\n");
 
 
     }
