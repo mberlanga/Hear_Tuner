@@ -42,10 +42,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d("HearTuner.Errors", "Device will not support Bluetooth");
 
         }
-        if (!mBlueAdapter.isEnabled()) { //Attempts to enable Bluetooth if it is not enabled
-            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);  //Intent to try to enable bluetooth
-            startActivityForResult(enableIntent, intVal); //Will start bluetooth as a separate activity
-        }
+//        if (!mBlueAdapter.isEnabled()) { //Attempts to enable Bluetooth if it is not enabled
+//            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);  //Intent to try to enable bluetooth
+//            startActivityForResult(enableIntent, intVal); //Will start bluetooth as a separate activity
+//        }
 
         //Make the device discoverable to other devices
         Intent deviceIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE); //Create intent to request device discovery
@@ -173,6 +173,8 @@ public class MainActivity extends AppCompatActivity {
             Log.d("HearTuner.debug", "Range for band [" + i + "] :"+ mEqualizer.getBandLevel(i) + " millibels\n\n");
 
         }
+
+        Log.d("HearTuner.debug", "Settings for Equalizer \n" + mEqualizer.getProperties());
 
 
 
