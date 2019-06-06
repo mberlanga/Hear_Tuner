@@ -2,15 +2,20 @@ package com.heartuner;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.media.audiofx.Equalizer;
+import android.util.Log;
 
 public class AppConfiguration {
+    public static MediaPlayer mMediaPlayer;
+    public static Equalizer mEqualizer;
+
     private static AppConfiguration myInstance = null;
     private Context mContext;
     private Equalizer.Settings manualProfile;  //Have manual equalizer profile set up in case of change
     private Equalizer.Settings testProfile;    //Have test equalizer profile set up in case of change
     private int profileSelection; //Maintain track of which profile was last selected.
-    private boolean tunerEnabled = false;
+    private boolean tunerEnabled = false; //Tracks state of the tuner and whether it is active
 
 
     //Profile Selection Management:
@@ -73,7 +78,40 @@ public class AppConfiguration {
 
 
     protected AppConfiguration(Context mContext){
+        Log.d("HearTuner.debug", "In AppConfiguration Constructor");
         this.mContext = mContext;
+        //TODO: This will be changed to select what was saved previously. Currently just uses default
+        // settings.
+        this.profileSelection = 0; //Default set profile selection to unselected
+        Log.d("HearTuner.debug", "Set profile to default: " + this.profileSelection);
+        this.tunerEnabled = false;  //Default disable the tuner on startup
+        Log.d("HearTuner.debug", "Set tunerEnable to default: " + this.tunerEnabled);
+
+        Log.d("HearTuner.debug", "Setting Hearing Profiles...");
+
+        //Initialize a media player and associated equalizer
+        try { //Setup static Media Player that plays song with dynamic range
+            this.mMediaPlayer = MediaPlayer.create(mContext, R.raw.test);
+        }
+        catch (Exception e){e.printStackTrace();}
+
+        //Setup Equalizer to be associated with MediaPlayer
+        this.mEqualizer = new Equalizer(0,this.mMediaPlayer.getAudioSessionId());
+        this.mEqualizer.setEnabled(true); //Enable Equalizer
+
+        //Set all bands to volume levels of 0 millibels amplification
+        for(short i=0;i < this.mEqualizer.getNumberOfBands();i++){
+            this.mEqualizer.setBandLevel(i,(short)0);
+        }
+        this.manualProfile = this.mEqualizer.getProperties();
+        Log.d("HearTuner.debug", "Manual Profile set to default");
+        this.testProfile = this.mEqualizer.getProperties();
+        Log.d("HearTuner.debug", "Test Profile set to default");
+
+        Log.d("HearTuner.debug", "" + this.toString());
+
+
+
         //TODO: Add capability to retrieve previous user settings when App was open last
         //TODO: Add serialization to current member variables within AppConfiguration class to use shared preferences
 //        SharedPreferences manualProfileData = mContext.getSharedPreferences("com.heartuner.manualProfileData",
@@ -89,5 +127,13 @@ public class AppConfiguration {
            myInstance = new AppConfiguration(myContext);
         }
         return myInstance;
+    }
+
+    @Override
+    public String toString() {
+        return "profileSelection=" + profileSelection + ";" +
+                "tunerEnabled=" + tunerEnabled + ";" +
+                "ManualSettings=" + manualProfile.toString() + ";" +
+                "testSettings=" + testProfile.toString() + ";";
     }
 }

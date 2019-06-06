@@ -23,8 +23,8 @@ import java.io.FileDescriptor;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
-    public MediaPlayer mp;
-    private Equalizer mEqualizer;
+    //public MediaPlayer mp;
+    //private Equalizer mEqualizer;
     private BluetoothAdapter mBlueAdapter; // To be used to interact with device Bluetooth
 
 
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        AppConfiguration.getInstance(this); // Initializes global settings object to be used between activities
         //TODO: Condense set up of bluetooth verification into another Bluetooth.java file
         //      so that one can just run a bluetooth_init() function
         //Set up Bluetooth Adapter
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 );
                 enableToast.show();
                 try{
-                mp.start();
+                AppConfiguration.mMediaPlayer.start();
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 );
                 disableToast.show();
                 try{
-                    mp.pause();
+                    AppConfiguration.mMediaPlayer.pause();
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -134,47 +135,47 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Test Media Features of application through media playback and recording
-        try { //Setup static Media Player that plays song with dynamic range
-            mp = MediaPlayer.create(this, R.raw.test);
-        }
-        catch (Exception e){e.printStackTrace();}
-
-        //Setup Equalizer to be associated with MediaPlayer
-        mEqualizer = new Equalizer(0,mp.getAudioSessionId());
-        mEqualizer.setEnabled(true); //Enable Equalizer
-
-        short numFrequencyBands = mEqualizer.getNumberOfBands();
-        short[] bandLevelRange = mEqualizer.getBandLevelRange();
-        Log.d("HearTuner.debug", "Number of Frequency Bands: " + numFrequencyBands + "\n");
-        Log.d("HearTuner.debug", "Lowest Level: " + bandLevelRange[0] + "\n");
-        Log.d("HearTuner.debug", "Highest Level: " + bandLevelRange[1] + "\n");
-
-        for(short i=0;i<numFrequencyBands;i++){
-            int centerFreq = mEqualizer.getCenterFreq(i);
-            Log.d("HearTuner.debug", "Center Frequency for band [" + i + "] :"+ centerFreq/1000 + " Hz\n");
-            Log.d("HearTuner.debug", "Range for band [" + i + "] :"+ mEqualizer.getBandLevel(i) + " millibels\n\n");
-
-        }
-
-
-
-        Log.d("HearTuner.debug", "NOW SETTING EQUALIZER TO DIFFERENT VALUES: [500,500,-200,200,0] \n");
-        mEqualizer.setBandLevel((short)0, (short)1500);
-        mEqualizer.setBandLevel((short)1,(short)1500);
-        mEqualizer.setBandLevel((short)2,(short)-1000);
-        mEqualizer.setBandLevel((short)3,(short)1500);
-        mEqualizer.setBandLevel((short)4,(short)1500);
-
-        for(short i=0;i<numFrequencyBands;i++){
-
-            int centerFreq = mEqualizer.getCenterFreq(i);
-            Log.d("HearTuner.debug", "Center Frequency for band [" + i + "] :"+ centerFreq/1000 + " Hz\n");
-            Log.d("HearTuner.debug", "Range for band [" + i + "] :"+ mEqualizer.getBandLevel(i) + " millibels\n\n");
-
-        }
-
-        Log.d("HearTuner.debug", "Settings for Equalizer \n" + mEqualizer.getProperties());
+//        //Test Media Features of application through media playback and recording
+//        try { //Setup static Media Player that plays song with dynamic range
+//            mp = MediaPlayer.create(this, R.raw.test);
+//        }
+//        catch (Exception e){e.printStackTrace();}
+//
+//        //Setup Equalizer to be associated with MediaPlayer
+//        mEqualizer = new Equalizer(0,mp.getAudioSessionId());
+//        mEqualizer.setEnabled(true); //Enable Equalizer
+//
+//        short numFrequencyBands = mEqualizer.getNumberOfBands();
+//        short[] bandLevelRange = mEqualizer.getBandLevelRange();
+//        Log.d("HearTuner.debug", "Number of Frequency Bands: " + numFrequencyBands + "\n");
+//        Log.d("HearTuner.debug", "Lowest Level: " + bandLevelRange[0] + "\n");
+//        Log.d("HearTuner.debug", "Highest Level: " + bandLevelRange[1] + "\n");
+//
+//        for(short i=0;i<numFrequencyBands;i++){
+//            int centerFreq = mEqualizer.getCenterFreq(i);
+//            Log.d("HearTuner.debug", "Center Frequency for band [" + i + "] :"+ centerFreq/1000 + " Hz\n");
+//            Log.d("HearTuner.debug", "Range for band [" + i + "] :"+ mEqualizer.getBandLevel(i) + " millibels\n\n");
+//
+//        }
+//
+//
+//
+//        Log.d("HearTuner.debug", "NOW SETTING EQUALIZER TO DIFFERENT VALUES: [500,500,-200,200,0] \n");
+//        mEqualizer.setBandLevel((short)0, (short)1500);
+//        mEqualizer.setBandLevel((short)1,(short)1500);
+//        mEqualizer.setBandLevel((short)2,(short)-1000);
+//        mEqualizer.setBandLevel((short)3,(short)1500);
+//        mEqualizer.setBandLevel((short)4,(short)1500);
+//
+//        for(short i=0;i<numFrequencyBands;i++){
+//
+//            int centerFreq = mEqualizer.getCenterFreq(i);
+//            Log.d("HearTuner.debug", "Center Frequency for band [" + i + "] :"+ centerFreq/1000 + " Hz\n");
+//            Log.d("HearTuner.debug", "Range for band [" + i + "] :"+ mEqualizer.getBandLevel(i) + " millibels\n\n");
+//
+//        }
+//
+//        Log.d("HearTuner.debug", "Settings for Equalizer \n" + mEqualizer.getProperties());
 
 
 
