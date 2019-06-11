@@ -32,6 +32,15 @@ public class AppConfiguration {
         }
         this.profileSelection = profileSelection;
 
+        //Set Equalizer to profile selected by user
+        if(profileSelection == 1){ //Set equalizer settings to manual profile
+            this.mEqualizer.setProperties(this.manualProfile);
+        }
+        else if(profileSelection == 2){ //Set equalizer settings to test profile
+            this.mEqualizer.setProperties(this.testProfile);
+        }
+
+
     }
 
     //Gets current profile selection.

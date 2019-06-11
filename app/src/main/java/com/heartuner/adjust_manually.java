@@ -1,8 +1,10 @@
 package com.heartuner;
 
+import android.media.audiofx.Equalizer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -83,16 +85,24 @@ public class adjust_manually extends AppCompatActivity {
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     Short x = (Short) seekBar.getTag();
                     int maxRange = AppConfiguration.mEqualizer.getBandLevelRange()[1];
-
+                    int oldProfile = AppConfiguration.getInstance(getApplicationContext()).getProfileSelection();
                     Log.d("HearTuner.debug", "Readjusting Seekbar value to equalizer level...");
                     short amplification = (short)(progress - maxRange);//((short) progress) - ((short) maxRange);
 
                     Log.d("HearTuner.debug", "Setting equalizer value based on bar:" + x);
                     Log.d("HearTuner.debug", "Value being set is: " + amplification);
 
+                    AppConfiguration.getInstance(getApplicationContext()).setProfileSelection(1);
                     AppConfiguration.mEqualizer.setBandLevel((short)(int) x, (short) amplification);
+                    AppConfiguration.getInstance(getApplicationContext()).setManualProfile(AppConfiguration.mEqualizer.getProperties());
+
+                    if(oldProfile == 0 || oldProfile == 2){
+                        AppConfiguration.getInstance(getApplicationContext()).setProfileSelection(oldProfile);
+                    }
 
                     Log.d("HearTuner.debug", "Bar " + x + "is now " + AppConfiguration.mEqualizer.getBandLevel((short) (int) x));
+                    Log.d("HearTuner.debug", "State is settings are now: " +AppConfiguration.getInstance(getApplicationContext()).toString());
+                    
 
 
 

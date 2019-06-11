@@ -56,9 +56,9 @@ public class settings extends AppCompatActivity {
         chooseManualButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                whichProfile = 1;
+                AppConfiguration.getInstance(getApplicationContext()).setProfileSelection(1);
                 Toast enableToast = Toast.makeText(getApplicationContext(),
-                        "Manual Profile Chosen",
+                        "Manual Profile Chosen" + AppConfiguration.getInstance(getApplicationContext()).getProfileSelection(),
                         Toast.LENGTH_SHORT
                 );
                 chooseManualButton.setChecked(true);
@@ -77,9 +77,9 @@ public class settings extends AppCompatActivity {
         chooseTestResultsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                whichProfile = 2;
+                AppConfiguration.getInstance(getApplicationContext()).setProfileSelection(2);
                 Toast enableToast = Toast.makeText(getApplicationContext(),
-                        "Test Profile Chosen",
+                        "Test Profile Chosen" + AppConfiguration.getInstance(getApplicationContext()).getProfileSelection(),
                         Toast.LENGTH_SHORT
                 );
                 chooseManualButton.setChecked(false);
