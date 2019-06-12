@@ -30,42 +30,44 @@ public class adjust_manually extends AppCompatActivity {
         adjusterBarList = new ArrayList<SeekBar>();
 
         //Add all TextViews associated with the center frequency titles to its respective list
-        centerFrequencyList.add((TextView)findViewById(R.id.band0_center_frequency));
-        centerFrequencyList.add((TextView)findViewById(R.id.band1_center_frequency));
-        centerFrequencyList.add((TextView)findViewById(R.id.band2_center_frequency));
-        centerFrequencyList.add((TextView)findViewById(R.id.band3_center_frequency));
-        centerFrequencyList.add((TextView)findViewById(R.id.band4_center_frequency));
+        centerFrequencyList.add((TextView) findViewById(R.id.band0_center_frequency));
+        centerFrequencyList.add((TextView) findViewById(R.id.band1_center_frequency));
+        centerFrequencyList.add((TextView) findViewById(R.id.band2_center_frequency));
+        centerFrequencyList.add((TextView) findViewById(R.id.band3_center_frequency));
+        centerFrequencyList.add((TextView) findViewById(R.id.band4_center_frequency));
 
         //Add all TextViews associated with the minimum range label to its respective list
-        minRangeList.add((TextView)findViewById(R.id.band0_min_range));
-        minRangeList.add((TextView)findViewById(R.id.band1_min_range));
-        minRangeList.add((TextView)findViewById(R.id.band2_min_range));
-        minRangeList.add((TextView)findViewById(R.id.band3_min_range));
-        minRangeList.add((TextView)findViewById(R.id.band4_min_range));
+        minRangeList.add((TextView) findViewById(R.id.band0_min_range));
+        minRangeList.add((TextView) findViewById(R.id.band1_min_range));
+        minRangeList.add((TextView) findViewById(R.id.band2_min_range));
+        minRangeList.add((TextView) findViewById(R.id.band3_min_range));
+        minRangeList.add((TextView) findViewById(R.id.band4_min_range));
 
         //Add all TextViews associated with the maximum range label to its respective list
-        maxRangeList.add((TextView)findViewById(R.id.band0_max_range));
-        maxRangeList.add((TextView)findViewById(R.id.band1_max_range));
-        maxRangeList.add((TextView)findViewById(R.id.band2_max_range));
-        maxRangeList.add((TextView)findViewById(R.id.band3_max_range));
-        maxRangeList.add((TextView)findViewById(R.id.band4_max_range));
+        maxRangeList.add((TextView) findViewById(R.id.band0_max_range));
+        maxRangeList.add((TextView) findViewById(R.id.band1_max_range));
+        maxRangeList.add((TextView) findViewById(R.id.band2_max_range));
+        maxRangeList.add((TextView) findViewById(R.id.band3_max_range));
+        maxRangeList.add((TextView) findViewById(R.id.band4_max_range));
 
         //Add all SeekBars associated with the center frequency magnitude to its respective list
-        adjusterBarList.add((SeekBar)findViewById(R.id.fBandAdjuster0));
-        adjusterBarList.add((SeekBar)findViewById(R.id.fBandAdjuster1));
-        adjusterBarList.add((SeekBar)findViewById(R.id.fBandAdjuster2));
-        adjusterBarList.add((SeekBar)findViewById(R.id.fBandAdjuster3));
-        adjusterBarList.add((SeekBar)findViewById(R.id.fBandAdjuster4));
+        adjusterBarList.add((SeekBar) findViewById(R.id.fBandAdjuster0));
+        adjusterBarList.add((SeekBar) findViewById(R.id.fBandAdjuster1));
+        adjusterBarList.add((SeekBar) findViewById(R.id.fBandAdjuster2));
+        adjusterBarList.add((SeekBar) findViewById(R.id.fBandAdjuster3));
+        adjusterBarList.add((SeekBar) findViewById(R.id.fBandAdjuster4));
 
         //Add some temporary variables to use for setting the text within the manual profile setting
-        short [] ranges = AppConfiguration.mEqualizer.getBandLevelRange();
+        short[] ranges = AppConfiguration.mEqualizer.getBandLevelRange();
         String temp;
 
         //Iterate through all ranges within the equalizer and set them accordingly to the values
         //set by the Equalizer
-        for(short i=0;i<AppConfiguration.mEqualizer.getNumberOfBands();i++){
+        int previousProfile = AppConfiguration.getInstance(getApplicationContext()).getProfileSelection();
+        AppConfiguration.getInstance(getApplicationContext()).setProfileSelection(1);
+        for (short i = 0; i < AppConfiguration.mEqualizer.getNumberOfBands(); i++) {
             //Set the text of the center frequency titles
-            temp = "" + AppConfiguration.mEqualizer.getCenterFreq(i)/1000 + "Hz";
+            temp = "" + AppConfiguration.mEqualizer.getCenterFreq(i) / 1000 + "Hz";
             centerFrequencyList.get(i).setText(temp);
 
             //Set the text of the minimum ranges of SeekBars
@@ -77,7 +79,7 @@ public class adjust_manually extends AppCompatActivity {
             maxRangeList.get(i).setText(temp);
 
             //Set the length and progress of the SeekBar according to the settings of the manual profile
-            adjusterBarList.get(i).setMax(Math.abs(ranges[0])+Math.abs(ranges[1]));
+            adjusterBarList.get(i).setMax(Math.abs(ranges[0]) + Math.abs(ranges[1]));
             adjusterBarList.get(i).setProgress(AppConfiguration.mEqualizer.getBandLevel(i) + ranges[1]);
             adjusterBarList.get(i).setTag(i);
             adjusterBarList.get(i).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -87,23 +89,21 @@ public class adjust_manually extends AppCompatActivity {
                     int maxRange = AppConfiguration.mEqualizer.getBandLevelRange()[1];
                     int oldProfile = AppConfiguration.getInstance(getApplicationContext()).getProfileSelection();
                     Log.d("HearTuner.debug", "Readjusting Seekbar value to equalizer level...");
-                    short amplification = (short)(progress - maxRange);//((short) progress) - ((short) maxRange);
+                    short amplification = (short) (progress - maxRange);//((short) progress) - ((short) maxRange);
 
                     Log.d("HearTuner.debug", "Setting equalizer value based on bar:" + x);
                     Log.d("HearTuner.debug", "Value being set is: " + amplification);
 
                     AppConfiguration.getInstance(getApplicationContext()).setProfileSelection(1);
-                    AppConfiguration.mEqualizer.setBandLevel((short)(int) x, (short) amplification);
+                    AppConfiguration.mEqualizer.setBandLevel((short) (int) x, (short) amplification);
                     AppConfiguration.getInstance(getApplicationContext()).setManualProfile(AppConfiguration.mEqualizer.getProperties());
 
-                    if(oldProfile == 0 || oldProfile == 2){
+                    if (oldProfile == 0 || oldProfile == 2) {
                         AppConfiguration.getInstance(getApplicationContext()).setProfileSelection(oldProfile);
                     }
 
                     Log.d("HearTuner.debug", "Bar " + x + "is now " + AppConfiguration.mEqualizer.getBandLevel((short) (int) x));
-                    Log.d("HearTuner.debug", "State is settings are now: " +AppConfiguration.getInstance(getApplicationContext()).toString());
-                    
-
+                    Log.d("HearTuner.debug", "State is settings are now: " + AppConfiguration.getInstance(getApplicationContext()).toString());
 
 
                 }
@@ -120,7 +120,20 @@ public class adjust_manually extends AppCompatActivity {
             });
 
         }
+        AppConfiguration.getInstance(getApplicationContext()).setProfileSelection(previousProfile);
 
 
     }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        Log.d("HearTuner.debug", "Now in onPause");
+        AppConfiguration.getInstance(getApplicationContext()).saveData();
+
+
+    }
+
 }

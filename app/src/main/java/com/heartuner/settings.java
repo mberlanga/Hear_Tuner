@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -25,6 +26,34 @@ public class settings extends AppCompatActivity {
         final ToggleButton chooseManualButton = (ToggleButton)findViewById(R.id.manual_choice_button); //Initialize button for choosing manual entry
         final ToggleButton chooseTestResultsButton = (ToggleButton)findViewById(R.id.test_results_choice_button); //Initialize button for choosing test results entry
 
+        if(AppConfiguration.getInstance(getApplicationContext()).getProfileSelection()==1){
+            chooseManualButton.setChecked(true);
+            chooseManualButton.setBackgroundColor(
+                    ContextCompat.getColor(getApplicationContext(),
+                            R.color.green_enable));
+            chooseTestResultsButton.setChecked(false);
+            chooseTestResultsButton.setBackgroundColor(
+                    ContextCompat.getColor(getApplicationContext(),
+                            R.color.heartuner_Blue));
+        }else if(AppConfiguration.getInstance(getApplicationContext()).getProfileSelection()==2){
+            chooseManualButton.setChecked(false);
+            chooseManualButton.setBackgroundColor(
+                    ContextCompat.getColor(getApplicationContext(),
+                            R.color.heartuner_Blue));
+            chooseTestResultsButton.setChecked(true);
+            chooseTestResultsButton.setBackgroundColor(
+                    ContextCompat.getColor(getApplicationContext(),
+                            R.color.green_enable));
+        }else{
+            chooseManualButton.setChecked(false);
+            chooseManualButton.setBackgroundColor(
+                    ContextCompat.getColor(getApplicationContext(),
+                            R.color.heartuner_Blue));
+            chooseTestResultsButton.setChecked(false);
+            chooseTestResultsButton.setBackgroundColor(
+                    ContextCompat.getColor(getApplicationContext(),
+                            R.color.heartuner_Blue));
+        }
 
 
         configureManualEntryButton.setOnClickListener(new View.OnClickListener() {
@@ -94,5 +123,18 @@ public class settings extends AppCompatActivity {
 
             }
         });
+    }
+
+
+
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+        Log.d("HearTuner.debug", "Now in onPause");
+        AppConfiguration.getInstance(getApplicationContext()).saveData();
+
+
     }
 }

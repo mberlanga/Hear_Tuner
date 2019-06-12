@@ -8,11 +8,13 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/heartuner_icon_final_reduced"
         android:label="@string/app_name"
         android:supportsRtl="false"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+
+        >
         <activity
             android:name=".adjust_manually"
             android:screenOrientation="portrait"></activity>

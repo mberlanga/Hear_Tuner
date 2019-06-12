@@ -37,33 +37,33 @@ public class MainActivity extends AppCompatActivity {
         //TODO: Condense set up of bluetooth verification into another Bluetooth.java file
         //      so that one can just run a bluetooth_init() function
         //Set up Bluetooth Adapter
-        int intVal = 1;
-        mBlueAdapter = BluetoothAdapter.getDefaultAdapter();  //Assigns default adapter
-        if (mBlueAdapter == null) { //Displays error message in logs if failure
-            Log.d("HearTuner.Errors", "Device will not support Bluetooth");
-
-        }
+//        int intVal = 1;
+//        mBlueAdapter = BluetoothAdapter.getDefaultAdapter();  //Assigns default adapter
+//        if (mBlueAdapter == null) { //Displays error message in logs if failure
+//            Log.d("HearTuner.Errors", "Device will not support Bluetooth");
+//
+//        }
 //        if (!mBlueAdapter.isEnabled()) { //Attempts to enable Bluetooth if it is not enabled
 //            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);  //Intent to try to enable bluetooth
 //            startActivityForResult(enableIntent, intVal); //Will start bluetooth as a separate activity
 //        }
 
-        //Make the device discoverable to other devices
-        Intent deviceIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE); //Create intent to request device discovery
-        deviceIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300); //Add extra time to device discovery time
-        startActivity(deviceIntent); // start the activity to be discovered
-
-        //Get the paired devices
-        Set<BluetoothDevice> pairedDevicesList = mBlueAdapter.getBondedDevices(); //Gets bonded devices and adds them to devices list
-        if (pairedDevicesList.size() > 0) { //Attempts to list devices if the device list is greater than 0
-            for (BluetoothDevice device : pairedDevicesList) { //Iterate over all items in device list
-                String deviceName = device.getName(); //assigns String to device name
-                String deviceHardwareAddress = device.getAddress(); //assigns String to device address
-
-                Log.d("HearTuner.Bluetooth", "Device: " + deviceName + "\n");
-                Log.d("HearTuner.Bluetooth", "Address: " + deviceHardwareAddress + "\n");
-            }
-        }
+//        //Make the device discoverable to other devices
+//        Intent deviceIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE); //Create intent to request device discovery
+//        deviceIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300); //Add extra time to device discovery time
+//        startActivity(deviceIntent); // start the activity to be discovered
+//
+//        //Get the paired devices
+//        Set<BluetoothDevice> pairedDevicesList = mBlueAdapter.getBondedDevices(); //Gets bonded devices and adds them to devices list
+//        if (pairedDevicesList.size() > 0) { //Attempts to list devices if the device list is greater than 0
+//            for (BluetoothDevice device : pairedDevicesList) { //Iterate over all items in device list
+//                String deviceName = device.getName(); //assigns String to device name
+//                String deviceHardwareAddress = device.getAddress(); //assigns String to device address
+//
+//                Log.d("HearTuner.Bluetooth", "Device: " + deviceName + "\n");
+//                Log.d("HearTuner.Bluetooth", "Address: " + deviceHardwareAddress + "\n");
+//            }
+//        }
 
 
         //Setup Buttons for Main Menu/Title Screen
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         "Music Playing!",
                         Toast.LENGTH_LONG);
                 settingsToast.show();
+                AppConfiguration.getInstance(getApplicationContext()).setTunerEnabled(true);
 
             }
         });
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         "Music Stopped!",
                         Toast.LENGTH_LONG);
                 settingsToast.show();
+                AppConfiguration.getInstance(getApplicationContext()).setTunerEnabled(false);
 
 
             }
@@ -177,6 +179,16 @@ public class MainActivity extends AppCompatActivity {
 //
 //        Log.d("HearTuner.debug", "Settings for Equalizer \n" + mEqualizer.getProperties());
 
+
+
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+        Log.d("HearTuner.debug", "Now in onPause");
+        AppConfiguration.getInstance(getApplicationContext()).saveData();
 
 
     }

@@ -3,9 +3,9 @@
     <string name="action_settings">Settings</string>
     <string name="blank"></string>
 
-    <string name="enable_button">Enable Button</string>
-    <string name="disable_button">Disable Button</string>
-    <string name="settings_button">Setup Button</string>
+    <string name="enable_button">Enable HearTuner</string>
+    <string name="disable_button">Disable HearTuner</string>
+    <string name="settings_button">Setup</string>
     <string name="enable_button_text">Enable</string>
     <string name="disable_button_text">Disable</string>
     <string name="settings_button_text">Setup Hearing Profile</string>
