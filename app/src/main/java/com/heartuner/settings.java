@@ -132,7 +132,7 @@ public class settings extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
 
-        Log.d("HearTuner.debug", "Now in onPause");
+        //Log.d("HearTuner.debug", "Now in onPause");
         AppConfiguration.getInstance(getApplicationContext()).saveData();
 
 

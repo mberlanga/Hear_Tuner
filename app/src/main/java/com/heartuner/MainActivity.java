@@ -33,7 +33,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         AppConfiguration.getInstance(this); // Initializes global settings object to be used between activities
+
+        setVolumeControlStream(AppConfiguration.mAudioManager.MODE_IN_COMMUNICATION);
+
+        (new Thread()
+        {
+            @Override
+            public void run()
+            {
+                AppConfiguration.getInstance(getApplicationContext()).recordAndPlay();
+            }
+        }).start();
         //TODO: Condense set up of bluetooth verification into another Bluetooth.java file
         //      so that one can just run a bluetooth_init() function
         //Set up Bluetooth Adapter
@@ -78,21 +90,26 @@ public class MainActivity extends AppCompatActivity {
         enableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!AppConfiguration.getInstance(getApplicationContext()).getTunerEnable())
+                {
+                    AppConfiguration.getInstance(getApplicationContext()).startRecordAndPlay();
+                }
+
                 Toast enableToast = Toast.makeText(getApplicationContext(),
                         "Enabled!",
                         Toast.LENGTH_SHORT
                 );
                 enableToast.show();
-                try{
-                AppConfiguration.mMediaPlayer.start();
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-                Toast settingsToast = Toast.makeText(getApplicationContext(),
-                        "Music Playing!",
-                        Toast.LENGTH_LONG);
-                settingsToast.show();
-                AppConfiguration.getInstance(getApplicationContext()).setTunerEnabled(true);
+//                try{
+//                AppConfiguration.mMediaPlayer.start();
+//                }catch(Exception e){
+//                    e.printStackTrace();
+//                }
+//                Toast settingsToast = Toast.makeText(getApplicationContext(),
+//                        "Music Playing!",
+//                        Toast.LENGTH_LONG);
+//                settingsToast.show();
+//                AppConfiguration.getInstance(getApplicationContext()).setTunerEnabled(true);
 
             }
         });
@@ -100,21 +117,26 @@ public class MainActivity extends AppCompatActivity {
         disableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (AppConfiguration.getInstance(getApplicationContext()).getTunerEnable())
+                {
+                    AppConfiguration.getInstance(getApplicationContext()).stopRecordAndPlay();
+                }
+
                 Toast disableToast = Toast.makeText(getApplicationContext(),
                         "Disabled!",
                         Toast.LENGTH_SHORT
                 );
                 disableToast.show();
-                try{
-                    AppConfiguration.mMediaPlayer.pause();
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-                Toast settingsToast = Toast.makeText(getApplicationContext(),
-                        "Music Stopped!",
-                        Toast.LENGTH_LONG);
-                settingsToast.show();
-                AppConfiguration.getInstance(getApplicationContext()).setTunerEnabled(false);
+//                try{
+//                    AppConfiguration.mMediaPlayer.pause();
+//                }catch(Exception e){
+//                    e.printStackTrace();
+//                }
+//                Toast settingsToast = Toast.makeText(getApplicationContext(),
+//                        "Music Stopped!",
+//                        Toast.LENGTH_LONG);
+//                settingsToast.show();
+//                AppConfiguration.getInstance(getApplicationContext()).setTunerEnabled(false);
 
 
             }
@@ -187,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
 
-        Log.d("HearTuner.debug", "Now in onPause");
+        //Log.d("HearTuner.debug", "Now in onPause");
         AppConfiguration.getInstance(getApplicationContext()).saveData();
 
 

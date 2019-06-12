@@ -2,7 +2,13 @@ package com.heartuner;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioRecord;
+import android.media.AudioTrack;
 import android.media.MediaPlayer;
+import android.media.MediaRecorder;
+import android.media.audiofx.AcousticEchoCanceler;
 import android.media.audiofx.Equalizer;
 import android.util.Log;
 import android.view.InputQueue;
@@ -10,6 +16,9 @@ import android.view.InputQueue;
 public class AppConfiguration {
     public static MediaPlayer mMediaPlayer;
     public static Equalizer mEqualizer;
+    public static AudioManager mAudioManager = null;
+    public static AudioRecord mRecord = null;
+    public static AudioTrack mTrack = null;
 
 
     private static final String MY_SAVED_SETTINGS  = "MY_CONFIGURATION";
@@ -19,6 +28,7 @@ public class AppConfiguration {
     private static final String HAS_SAVED_KEY = "HearTuner.hasSaved";
     private static final String TUNER_ENABLED_KEY = "HearTuner.tunerEnabled";
     private static final String NUM_BANDS = "HearTuner.numBands";
+    private static final int SAMPLING_RATE = 16000;
 
     private static AppConfiguration myInstance = null;
     private Context mContext;
@@ -111,14 +121,21 @@ public class AppConfiguration {
 
         Log.d("HearTuner.debug", "Setting Hearing Profiles...");
 
-        //Initialize a media player and associated equalizer
-        try { //Setup static Media Player that plays song with dynamic range
-            this.mMediaPlayer = MediaPlayer.create(mContext, R.raw.test);
-        }
-        catch (Exception e){e.printStackTrace();}
 
+        //Initialize a media player and associated equalizer
+//        try { //Setup static Media Player that plays song with dynamic range
+//            this.mMediaPlayer = MediaPlayer.create(mContext, R.raw.test);
+//        }
+//        catch (Exception e){e.printStackTrace();}
+
+        this.initRecordAndTrack();
+
+        this.mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
+        this.mAudioManager.setSpeakerphoneOn(true);
+
+        int audioSessionID = this.mTrack.getAudioSessionId();
         //Setup Equalizer to be associated with MediaPlayer
-        this.mEqualizer = new Equalizer(0,this.mMediaPlayer.getAudioSessionId());
+        this.mEqualizer = new Equalizer(0,audioSessionID);
         this.mEqualizer.setEnabled(true); //Enable Equalizer
 
         //Set all bands to volume levels of 0 millibels amplification
@@ -215,9 +232,9 @@ public class AppConfiguration {
         editor.commit();
         Log.d("HearTuner.debug", "profileSelection set as: " + Integer.toString(this.getProfileSelection()));
         //Save whether the tuner was enabled or disabled upon saving
-        editor.putString(this.TUNER_ENABLED_KEY,Boolean.toString(this.getTunerEnable()));
-        editor.commit();
-        Log.d("HearTuner.debug", "tunerEnabled saved as: " + Boolean.toString(this.getTunerEnable()));
+//        editor.putString(this.TUNER_ENABLED_KEY,Boolean.toString(this.getTunerEnable()));
+//        editor.commit();
+//        Log.d("HearTuner.debug", "tunerEnabled saved as: " + Boolean.toString(this.getTunerEnable()));
 
 
     }
@@ -261,13 +278,64 @@ public class AppConfiguration {
             this.profileSelection = Integer.parseInt(temp);
             this.setProfileSelection(this.profileSelection);
 
-            temp = this.mSavedSettings.getString(this.TUNER_ENABLED_KEY,null);
-            this.tunerEnabled = Boolean.parseBoolean(temp);
-            this.setTunerEnabled(this.tunerEnabled);
+//            temp = this.mSavedSettings.getString(this.TUNER_ENABLED_KEY,null);
+//            this.tunerEnabled = Boolean.parseBoolean(temp);
+//            this.setTunerEnabled(this.tunerEnabled);
 
         }
 
 
+    }
+
+
+
+    public void initRecordAndTrack()
+    {
+        int min = AudioRecord.getMinBufferSize(this.SAMPLING_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
+        this.mRecord = new AudioRecord(MediaRecorder.AudioSource.VOICE_COMMUNICATION, this.SAMPLING_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT,
+                min);
+        if (AcousticEchoCanceler.isAvailable())
+        {
+            AcousticEchoCanceler echoCancler = AcousticEchoCanceler.create(this.mRecord.getAudioSessionId());
+            echoCancler.setEnabled(true);
+        }
+        int maxJitter = AudioTrack.getMinBufferSize(this.SAMPLING_RATE, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT);
+        this.mTrack = new AudioTrack(AudioManager.MODE_IN_COMMUNICATION, this.SAMPLING_RATE, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT, maxJitter,
+                AudioTrack.MODE_STREAM);
+    }
+
+
+
+
+
+
+    public void recordAndPlay()
+    {
+        short[] lin = new short[256];
+        int num = 0;
+        this.mAudioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+        while (true)
+        {
+            if (this.tunerEnabled)
+            {
+                num = this.mRecord.read(lin, 0, 256);
+                this.mTrack.write(lin, 0, num);
+            }
+        }
+    }
+
+    public void startRecordAndPlay()
+    {
+        this.mRecord.startRecording();
+        this.mTrack.play();
+        this.tunerEnabled = true;
+    }
+
+    public void stopRecordAndPlay()
+    {
+        this.mRecord.stop();
+        this.mTrack.pause();
+        this.tunerEnabled = false;
     }
 
 }

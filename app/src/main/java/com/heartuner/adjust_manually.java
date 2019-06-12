@@ -88,11 +88,11 @@ public class adjust_manually extends AppCompatActivity {
                     Short x = (Short) seekBar.getTag();
                     int maxRange = AppConfiguration.mEqualizer.getBandLevelRange()[1];
                     int oldProfile = AppConfiguration.getInstance(getApplicationContext()).getProfileSelection();
-                    Log.d("HearTuner.debug", "Readjusting Seekbar value to equalizer level...");
+                    //Log.d("HearTuner.debug", "Readjusting Seekbar value to equalizer level...");
                     short amplification = (short) (progress - maxRange);//((short) progress) - ((short) maxRange);
 
-                    Log.d("HearTuner.debug", "Setting equalizer value based on bar:" + x);
-                    Log.d("HearTuner.debug", "Value being set is: " + amplification);
+                    //Log.d("HearTuner.debug", "Setting equalizer value based on bar:" + x);
+                    //Log.d("HearTuner.debug", "Value being set is: " + amplification);
 
                     AppConfiguration.getInstance(getApplicationContext()).setProfileSelection(1);
                     AppConfiguration.mEqualizer.setBandLevel((short) (int) x, (short) amplification);
@@ -102,8 +102,8 @@ public class adjust_manually extends AppCompatActivity {
                         AppConfiguration.getInstance(getApplicationContext()).setProfileSelection(oldProfile);
                     }
 
-                    Log.d("HearTuner.debug", "Bar " + x + "is now " + AppConfiguration.mEqualizer.getBandLevel((short) (int) x));
-                    Log.d("HearTuner.debug", "State is settings are now: " + AppConfiguration.getInstance(getApplicationContext()).toString());
+                    //Log.d("HearTuner.debug", "Bar " + x + "is now " + AppConfiguration.mEqualizer.getBandLevel((short) (int) x));
+                    //Log.d("HearTuner.debug", "State is settings are now: " + AppConfiguration.getInstance(getApplicationContext()).toString());
 
 
                 }
@@ -130,7 +130,7 @@ public class adjust_manually extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        Log.d("HearTuner.debug", "Now in onPause");
+        //Log.d("HearTuner.debug", "Now in onPause");
         AppConfiguration.getInstance(getApplicationContext()).saveData();
 
 
